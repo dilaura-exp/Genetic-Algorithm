@@ -20,15 +20,15 @@ public class GameController : MonoBehaviour {
 
     private void Update() {
         bool updateStats = false;
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+        if (Input.GetKey(KeyCode.Alpha1)) {
             player.Health++;
             updateStats = true;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2)) {
+        if (Input.GetKey(KeyCode.Alpha2)) {
             player.Attack++;
             updateStats = true;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3)) {
+        if (Input.GetKey(KeyCode.Alpha3)) {
             player.Defense++;
             updateStats = true;
         }
@@ -39,8 +39,8 @@ public class GameController : MonoBehaviour {
     }
 
     private void Init() {
-        player.SetAttributes(50, 45, 30);
-        enemies[0].SetAttributes(40, 50, 20);
+        player.SetAttributes(1000, 500, 500);
+        enemies[0].SetAttributes(100, 50, 20);
         enemies[1].SetAttributes(35, 40, 15);
         enemies[2].SetAttributes(55, 25, 25);
         enemies[3].SetAttributes(20, 30, 35);

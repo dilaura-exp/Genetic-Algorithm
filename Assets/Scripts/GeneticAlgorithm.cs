@@ -7,8 +7,10 @@ public class GeneticAlgorithm {
     private GameController controller;
     public GeneticAlgorithm(GameController controller) {
         this.controller = controller;
+        generation = 0;
     }
 
+    private int generation;
     private int populations;
     private float[] fitness;
     private float[] probabilities;
@@ -17,6 +19,8 @@ public class GeneticAlgorithm {
     private float mutationRate;
 
     public void RunGeneticAlgorithm() {
+        generation++;
+        Debug.Log("Generation-" + generation);
         populations = controller.enemies.Length;
         fitness = new float[populations];
         probabilities = new float[populations];
@@ -136,10 +140,10 @@ public class GeneticAlgorithm {
                     parents[i].Health = matches[i].health;
                 }
                 else if (j == 1) {
-                    parents[i].Health = matches[i].attack;
+                    parents[i].Attack = matches[i].attack;
                 }
                 else if (j == 2) {
-                    parents[i].Health = matches[i].defense;
+                    parents[i].Defense = matches[i].defense;
                 }
             }
         }
@@ -152,21 +156,21 @@ public class GeneticAlgorithm {
             int chromosomeIndex = randomIndex / 3;
             int genIndex = randomIndex % 3;
 
-            float randomStats = generateRandomStats(genIndex);
+            float randomStats = generateRandomStats(chromosomeIndex, genIndex);
             controller.enemies[chromosomeIndex].SetAttributesByIndex(genIndex, randomStats);
             Debug.Log("Change enemy-" + chromosomeIndex + " at gen-" + genIndex + " with value of " + randomStats);
         }
     }
 
-    private float generateRandomStats(int genIndex) {
+    private float generateRandomStats(int chromosomeIndex, int genIndex) {
         if (genIndex == 0) {
-            return Random.Range(0f, controller.player.Health);
+            return Random.Range(controller.enemies[chromosomeIndex].Health, controller.player.Health);
         }
         else if (genIndex == 1) {
-            return Random.Range(0f, controller.player.Attack);
+            return Random.Range(controller.enemies[chromosomeIndex].Attack, controller.player.Attack);
         }
         else {
-            return Random.Range(0f, controller.player.Defense);
+            return Random.Range(controller.enemies[chromosomeIndex].Defense, controller.player.Defense);
         }
     }
 }
